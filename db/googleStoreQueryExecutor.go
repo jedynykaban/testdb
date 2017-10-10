@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"errors"
+	"log"
 
 	"cloud.google.com/go/datastore"
 )
@@ -21,5 +21,12 @@ func New(ctx context.Context, client *datastore.Client) *datastoreStorage {
 }
 
 func (d *datastoreStorage) GetLicenses() ([]License, error) {
-	return nil, errors.New("NOT IMPLEMENTED")
+	query := datastore.NewQuery("License")
+	var result []License
+	_, err := d.client.GetAll(d.ctx, query, &result)
+	if err != nil {
+		log.Fatal(err)
+		return result, err
+	}
+	return result, nil
 }

@@ -1,7 +1,8 @@
 package db
 
+//License : data strucutre of License table in google cloud storage
 type License struct {
-	Type  string `json:"type"`
-	Text  string `json:"text"`
-	Promo string `json:"promo"`
+	id   int
+	Name string
+	Type string
 }
