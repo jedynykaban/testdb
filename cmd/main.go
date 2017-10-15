@@ -4,12 +4,13 @@ import (
 	"context"
 	"io"
 	"reflect"
-	"strconv"
+	//"strconv"
 	"strings"
 
 	"cloud.google.com/go/datastore"
 
 	"github.com/jedynykaban/testdb/db"
+	"github.com/jedynykaban/testdb/implTestElements"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -32,6 +33,14 @@ func setupLogging(output io.Writer, level log.Level, format string) {
 func main() {
 	log.Info("testdb started")
 
+	implTestElements.TestEntityReflectionFun()
+
+	log.Info("testdb completed")
+}
+
+func mainEx() {
+	log.Info("testdb started")
+
 	ctx := context.TODO()
 	storeClient := createStoreClient(ctx)
 	if storeClient != nil {
@@ -50,19 +59,19 @@ func main() {
 	}
 
 	//test entity part
-	testEntities, err := repo.GetTestEntities()
+	// testEntities, err := repo.GetTestEntities()
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	for _, item := range testEntities {
-		log.Info("test entity: \n" +
-			"DateTimeField : " + item.TestDateTimeField.String() + "\n" +
-			"FloatField : " + strconv.item.TestFloatField.String() + "\n" +
-			"IntField : " + strconv.Itoa(item.TestIntField) + "\n" +
-			"StringField : " + item.TestStringField + "\n")
-	}
+	// for _, item := range testEntities {
+	// 	log.Info("test entity: \n" +
+	// 		"DateTimeField : " + item.TestDateTimeField.String() + "\n" +
+	// 		"FloatField : " + strconv.item.TestFloatField.String() + "\n" +
+	// 		"IntField : " + strconv.Itoa(item.TestIntField) + "\n" +
+	// 		"StringField : " + item.TestStringField + "\n")
+	// }
 
 	//scanner := bufio.NewScanner(os.Stdin)
 	//scanner.Scan()
