@@ -30,3 +30,14 @@ func (d *datastoreStorage) GetLicenses() ([]License, error) {
 	}
 	return result, nil
 }
+
+func (d *datastoreStorage) GetTestEntities() ([]TestEntity, error) {
+	query := datastore.NewQuery("TestEntity")
+	var result []TestEntity
+	_, err := d.client.GetAll(d.ctx, query, &result)
+	if err != nil {
+		log.Fatal(err)
+		return result, err
+	}
+	return result, nil
+}

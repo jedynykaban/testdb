@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"io"
-	"os"
+	"reflect"
+	"strconv"
 	"strings"
 
 	"cloud.google.com/go/datastore"
@@ -45,11 +45,27 @@ func main() {
 	}
 
 	for _, item := range testResult {
-		log.Info(item.Name)
+		name := reflect.ValueOf(item).FieldByName("Name").String()
+		log.Info("name: " + item.Name + " & name by reflection: " + name)
 	}
 
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
+	//test entity part
+	testEntities, err := repo.GetTestEntities()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, item := range testEntities {
+		log.Info("test entity: \n" +
+			"DateTimeField : " + item.TestDateTimeField.String() + "\n" +
+			"FloatField : " + strconv.item.TestFloatField.String() + "\n" +
+			"IntField : " + strconv.Itoa(item.TestIntField) + "\n" +
+			"StringField : " + item.TestStringField + "\n")
+	}
+
+	//scanner := bufio.NewScanner(os.Stdin)
+	//scanner.Scan()
 
 	log.Info("testdb stoppped")
 }
